@@ -10,7 +10,7 @@ And it is free, for all!
 
 # compiling
 
-To use this little programm, in Linux:
+To use this little programm, on Linux:
 1. download my programm on your computer as a zip file
 2. ctrl+alt+T open the Terminal
 3. give command: cd Downloads
