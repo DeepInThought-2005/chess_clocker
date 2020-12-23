@@ -11,5 +11,7 @@ And it is free, for all!
 # compiling
 
 To use this little programm, in Linux:
-1. click 
-1. ctrl+alt+T open the Terminal
+1. download my programm on your computer as a zip file
+2. ctrl+alt+T open the Terminal
+3. give command: cd Download
+4. unzip 
