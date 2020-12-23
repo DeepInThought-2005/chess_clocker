@@ -13,5 +13,9 @@ And it is free, for all!
 To use this little programm, in Linux:
 1. download my programm on your computer as a zip file
 2. ctrl+alt+T open the Terminal
-3. give command: cd Download
-4. unzip 
+3. give command: cd Downloads
+4. give command: unzip chess_clocker-main.zip
+5. give command: cd chess_clocker-main
+6. give command: python3 chessclocker.py
+
+original filepath: /home/username/Downloads/chess_clocker-main/chessclocker.py
