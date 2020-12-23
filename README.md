@@ -10,6 +10,6 @@ And it is free, for all!
 
 # compiling
 
-To use this little programm, you need to:
-Linux:
+To use this little programm, in Linux:
+1. click 
 1. ctrl+alt+T open the Terminal
