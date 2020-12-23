@@ -14,12 +14,12 @@ class Clock:
         self.right_time, self.left_time = 0, 0
 
         self.c1 = Label(self.frame, padx=10, pady=5,
-              font=("Arial", 40), relief=RIDGE, bd=4)
+              font=("Arial", 60), relief=RIDGE, bd=4)
         self.leftconfig()
 
 
         self.c2 = Label(self.frame, padx=10, pady=5,
-              font=("Arial", 40), relief=RIDGE, bd=4)
+              font=("Arial", 60), relief=RIDGE, bd=4)
         self.rightconfig()
 
 
@@ -36,7 +36,6 @@ class Clock:
 
         self.pause_button = Button(self.fenster, text="pause", activebackground='red',
                              relief=RAISED, bd=4, command=self.pause)
-        self.pause_button.bind("<KeyPress-A>", self.pause)
 
 
         self.entry_left = Entry(self.entry_frame, width=10)
@@ -44,38 +43,19 @@ class Clock:
         self.left_min = Label(self.entry_frame, text="min.")
         self.right_min = Label(self.entry_frame, text="min.")
         self.command_frame = Frame(self.fenster, padx=6, pady=2)
-        self.sign_label = Label(self.command_frame, text="a for left -- l for right")
-        self.change_stuff = Entry(self.command_frame, width=1, text="nihao")
-        self.change_stuff.bind("<Key-a>", self.change_to_right)
-        self.change_stuff.bind("<Key-l>", self.change_to_left)
+        self.sign_label = Label(self.command_frame, text="Shift_Left <switch> Shift_Right",
+                                font=("Times", 20, "italic"))
+        self.change_stuff = Entry(self.command_frame, width=2, font=('Arial', 10))
+        self.change_stuff.bind("<Key-Shift_L>", self.change_to_right)
+        self.change_stuff.bind("<Key-Shift_R>", self.change_to_left)
         self.change_stuff.bind("<Key-space>", self.space_pressed)
         self.mode_frame = Frame(self.fenster, padx=6, pady=2)
         self.mode_entry = Entry(self.mode_frame, width=6)
         self.mode_entry.focus_set()
         self.mode_button = Button(self.mode_frame, text="config",
                                   command=self.time_config)
-
-        # self.right_button = Entry(self.button_frame, width=2,)
-        # self.right_button.bind("<Key-l>", self.change_to_left)
-        # self.right_button.grid(column=2, row=1)
-
-        # self.scale_frame = Frame(self.fenster, padx=6, pady=2)
-        # self.size_scale = Scale(self.scale_frame, name="size", from_=1, to=200,
-        #                         command=self.setsize, orient=HORIZONTAL)
-        # self.size_scale.pack(anchor=CENTER)
-        # self.scale_frame.pack()
         self.layout()
         self.fenster.mainloop()
-    # def setsize(self):
-    #     size = int(self.size_scale.get())
-    #     self.c1.config(font=("Arial", size))
-    #     self.left_button.config(font=("Arial", size))
-    #     self.right.config(font=("Arial", size))
-    #     self.left_min.config(font=("Arial", size))
-    #     self.right_min.config(font=("Arial", size))
-    #     self.start_button.config(font=("Arial", size))
-    #     self.pause_button.config(font=("Arial", size))
-
 
     def layout(self):
         self.frame.pack(padx=6, pady=2)
@@ -84,6 +64,7 @@ class Clock:
         self.c2.pack(side=RIGHT)
         self.set_button_left.pack(side=LEFT)
         self.set_button_right.pack(side=RIGHT)
+        Label(self.entry_frame, text=" ", padx=100).grid(column=2, row=2)
         self.start_button.pack(anchor=CENTER)
         self.sign_label.pack()
         self.change_stuff.pack(anchor=CENTER)
@@ -103,9 +84,9 @@ class Clock:
     def set_right(self):
         self.entry_right.focus_set()
         self.right_min = Label(self.entry_frame, text="min.")
-        self.right_min.grid(column=3, row=2)
+        self.right_min.grid(column=4, row=2)
         self.set_button_right.config(text="ok", command=self.zuruecksetzen_right)
-        self.entry_right.grid(column=2, row=2)
+        self.entry_right.grid(column=3, row=2)
         self.is_going = 0
         self.pause()
 
