@@ -5,7 +5,10 @@ So I programmed with Python Tkinter.
 Well, that is somehow better than i thought, i mean 100 times better!
 
 !!!notice!!!
-    To give a mode you need to input like this: 3+2 (it means 3 minutes and 2 second bonus every switch)
+
+    To give a mode you need to input like this: 3+2 (it means 3 minutes and 2 second bonus every switch)!
+    To switch, set the entry in the middle focus!
+    To continue or to pause, press <space>!
 
 
 # compiling
