@@ -45,16 +45,14 @@ class Clock:
         self.command_frame = Frame(self.fenster, padx=6, pady=2)
         self.sign_label = Label(self.command_frame, text="Shift_Left <switch> Shift_Right",
                                 font=("Times", 15, "italic"))
-        self.change_stuff = Entry(self.command_frame, width=2, font=('Arial', 10))
-        self.change_stuff.bind("<Key-Shift_L>", self.change_to_right)
-        self.change_stuff.bind("<Key-Shift_R>", self.change_to_left)
-        self.change_stuff.bind("<Key-space>", self.space_pressed)
         self.mode_frame = Frame(self.fenster, padx=6, pady=2)
         self.mode_entry = Entry(self.mode_frame, width=6)
         self.mode_entry.focus_set()
         self.mode_button = Button(self.mode_frame, text="config",
                                   command=self.time_config)
         self.layout()
+        self.fenster.bind("<KeyPress-Shift_L>", self.change_to_right)
+        self.fenster.bind("<KeyPress-Shift_R>", self.change_to_left)
         self.fenster.mainloop()
 
     def layout(self):
@@ -67,7 +65,6 @@ class Clock:
         Label(self.entry_frame, text=" ", padx=100).grid(column=2, row=2)
         self.start_button.pack(anchor=CENTER)
         self.sign_label.pack()
-        self.change_stuff.pack(anchor=CENTER)
         self.command_frame.pack()
         self.mode_button.pack(side=RIGHT)
         self.mode_entry.pack(side=RIGHT)
@@ -155,8 +152,7 @@ class Clock:
 
     def start(self):
         self.is_going = 1
-        self.change_stuff.focus_set()
-        self.change_stuff.delete(0)
+        self.mode_entry.focus_get()
         if self.is_going:
             self.run()
             self.start_button.pack_forget()
@@ -177,7 +173,6 @@ class Clock:
         self.is_left = 1
         self.is_right = 0
         self.sign_label.config(text="Left's turn")
-        self.change_stuff.delete(0)
 
 
     def change_to_right(self, event=None):
@@ -187,11 +182,9 @@ class Clock:
         self.is_right = 1
         self.is_left = 0
         self.sign_label.config(text="Right's turn")
-        self.change_stuff.delete(0)
 
 
     def space_pressed(self, event=None):
-        self.change_stuff.delete(0)
         if self.is_going:
             self.pause()
             return
