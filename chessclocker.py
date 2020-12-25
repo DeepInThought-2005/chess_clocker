@@ -24,18 +24,18 @@ class Clock:
 
 
         self.set_button_left = Button(self.fenster, text="set",
-                                      command=self.set_left)
+                                      command=self.set_left, font=("Arial", 12))
 
 
         self.set_button_right = Button(self.fenster, text="set",
-                                      command=self.set_right)
+                                      command=self.set_right, font=("Arial", 12))
 
 
         self.start_button = Button(self.fenster, text="start", activebackground='green',
-                             relief=RAISED, bd=4, command=self.start)
+                             relief=RAISED, bd=4, command=self.start, font=("Arial", 15))
 
         self.pause_button = Button(self.fenster, text="pause", activebackground='red',
-                             relief=RAISED, bd=4, command=self.pause)
+                             relief=RAISED, bd=4, command=self.pause, font=("Arial", 15))
 
 
         self.entry_left = Entry(self.entry_frame, width=10)
@@ -44,7 +44,7 @@ class Clock:
         self.right_min = Label(self.entry_frame, text="min.")
         self.command_frame = Frame(self.fenster, padx=6, pady=2)
         self.sign_label = Label(self.command_frame, text="Shift_Left <switch> Shift_Right",
-                                font=("Times", 20, "italic"))
+                                font=("Times", 15, "italic"))
         self.change_stuff = Entry(self.command_frame, width=2, font=('Arial', 10))
         self.change_stuff.bind("<Key-Shift_L>", self.change_to_right)
         self.change_stuff.bind("<Key-Shift_R>", self.change_to_left)
@@ -62,8 +62,8 @@ class Clock:
         self.entry_frame.pack(padx=6, pady=2)
         self.c1.pack(side=LEFT)
         self.c2.pack(side=RIGHT)
-        self.set_button_left.pack(side=LEFT)
-        self.set_button_right.pack(side=RIGHT)
+        self.set_button_left.pack(side=LEFT, padx=20)
+        self.set_button_right.pack(side=RIGHT, padx=20)
         Label(self.entry_frame, text=" ", padx=100).grid(column=2, row=2)
         self.start_button.pack(anchor=CENTER)
         self.sign_label.pack()
