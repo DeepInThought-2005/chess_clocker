@@ -14,12 +14,12 @@ class Clock:
         self.right_time, self.left_time = 0, 0
 
         self.c1 = Label(self.frame, padx=10, pady=5,
-              font=("Arial", 60), relief=RIDGE, bd=4)
+              font=("Arial", 60), relief=RIDGE, bd=6, fg="green")
         self.leftconfig()
 
 
         self.c2 = Label(self.frame, padx=10, pady=5,
-              font=("Arial", 60), relief=RIDGE, bd=4)
+              font=("Arial", 60), relief=RIDGE, bd=6)
         self.rightconfig()
 
 
@@ -46,7 +46,7 @@ class Clock:
         self.sign_label = Label(self.command_frame, text="Shift_Left <switch> Shift_Right",
                                 font=("Times", 15, "italic"))
         self.mode_frame = Frame(self.fenster, padx=6, pady=2)
-        self.mode_entry = Entry(self.mode_frame, width=6)
+        self.mode_entry = Entry(self.mode_frame, width=6, font=("Arial", 14))
         self.mode_entry.focus_set()
         self.mode_button = Button(self.mode_frame, text="config",
                                   command=self.time_config)
@@ -133,9 +133,12 @@ class Clock:
 
     def time_config(self):
         bonus = self.mode_entry.get()
-        l = bonus.split("+")
-        self.bonus_time = int(l[1])
-        self.right_time, self.left_time = int(l[0]) * 60, int(l[0]) * 60
+        try:
+            l = bonus.split("+")
+            self.bonus_time = float(l[1])
+            self.right_time, self.left_time = int(float(l[0]) * 60), int(float(l[0]) * 60)
+        except:
+            self.right_time, self.left_time = int(float(bonus) * 60), int(float(bonus) * 60)
         self.rightconfig()
         self.leftconfig()
 
@@ -148,6 +151,11 @@ class Clock:
             elif self.is_right and self.right_time > 0:
                 self.right_time -= 1
                 self.rightconfig()
+            if self.left_time <= 0:
+                self.c1.config(fg="red")
+            elif self.right_time <=0:
+                self.c2.config(fg="red")
+
             self.fenster.after(1000, self.run)
 
     def start(self):
@@ -173,7 +181,8 @@ class Clock:
         self.is_left = 1
         self.is_right = 0
         self.sign_label.config(text="Left's turn")
-
+        self.c1.config(fg="green")
+        self.c2.config(fg="black")
 
     def change_to_right(self, event=None):
         if self.is_going == 1 and self.is_left:
@@ -182,6 +191,8 @@ class Clock:
         self.is_right = 1
         self.is_left = 0
         self.sign_label.config(text="Right's turn")
+        self.c2.config(fg="green")
+        self.c1.config(fg="black")
 
 
     def space_pressed(self, event=None):
