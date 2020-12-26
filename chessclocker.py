@@ -8,6 +8,7 @@ class Clock:
         self.is_right = 0
         self.is_going = 1
         self.fenster = Tk()
+        self.fenster.title("Best Chess Timer")
         self.frame = Frame(self.fenster, relief=GROOVE, bd=4)
         self.entry_frame = Frame(self.fenster)
 
