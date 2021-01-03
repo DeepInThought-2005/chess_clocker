@@ -6,7 +6,7 @@ class Clock:
         self.bonus_time = 0
         self.is_left = 1
         self.is_right = 0
-        self.is_going = 1
+        self.is_going = 0
         self.fenster = Tk()
         self.fenster.title("Best Chess Timer")
         self.frame = Frame(self.fenster, relief=GROOVE, bd=4)
@@ -54,6 +54,7 @@ class Clock:
         self.layout()
         self.fenster.bind("<KeyPress-Shift_L>", self.change_to_right)
         self.fenster.bind("<KeyPress-Shift_R>", self.change_to_left)
+        self.fenster.bind("<space>", self.space_pressed)
         self.fenster.mainloop()
 
     def layout(self):
@@ -101,20 +102,20 @@ class Clock:
                             str(self.left_time % 60))
         if self.left_time % 60 < 10:
             self.c1.config(text=str(int(self.left_time / 60)) + ':' + \
-                                '0' + str(self.left_time % 60))
+                                '0' + str(int(self.left_time % 60)))
             if self.left_time / 60 < 10:
                 self.c1.config(text='0' + str(int(self.left_time / 60)) + ':' + \
-                                    '0' + str(self.left_time % 60))
+                                    '0' + str(int(self.left_time % 60)))
         else:
             if self.left_time / 60 < 10:
                 self.c1.config(text='0' + str(int(self.left_time / 60)) + ':' + \
-                                    str(self.left_time % 60))
+                                    str(int(self.left_time % 60)))
 
     def zuruecksetzen_right(self):
         if self.entry_right.get() and not self.entry_right.get().isalpha():
             self.entry_right.grid_forget()
             self.right_min.grid_forget()
-            self.right_time = int(float(self.entry_right.get()) * 60)
+            self.right_time = float(self.entry_right.get()) * 60
             self.rightconfig()
             self.set_button_right.config(text="set", command=self.set_right)
 
@@ -123,14 +124,14 @@ class Clock:
                             str(self.right_time % 60))
         if self.right_time % 60 < 10:
             self.c2.config(text=str(int(self.right_time / 60)) + ':' + \
-                                '0' + str(self.right_time % 60))
+                                '0' + str(int(self.right_time % 60)))
             if self.right_time / 60 < 10:
                 self.c2.config(text='0' + str(int(self.right_time / 60)) + ':' + \
-                                    '0' + str(self.right_time % 60))
+                                    '0' + str(int(self.right_time % 60)))
         else:
             if self.right_time / 60 < 10:
                 self.c2.config(text='0' + str(int(self.right_time / 60)) + ':' + \
-                                    str(self.right_time % 60))
+                                    str(int(self.right_time % 60)))
 
     def time_config(self):
         bonus = self.mode_entry.get()
@@ -154,14 +155,16 @@ class Clock:
                 self.rightconfig()
             if self.left_time <= 0:
                 self.c1.config(fg="red")
+                self.is_going = 0
             elif self.right_time <=0:
                 self.c2.config(fg="red")
+                self.is_going = 0
 
             self.fenster.after(1000, self.run)
 
     def start(self):
         self.is_going = 1
-        self.mode_entry.focus_get()
+        self.fenster.focus_set()
         if self.is_going:
             self.run()
             self.start_button.pack_forget()
@@ -199,8 +202,8 @@ class Clock:
     def space_pressed(self, event=None):
         if self.is_going:
             self.pause()
-            return
-        self.start()
+        else:
+            self.start()
 
 
 C = Clock()
