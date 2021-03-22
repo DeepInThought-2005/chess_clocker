@@ -19,6 +19,7 @@ To use this little programm, on Linux:
 3. give command: cd Downloads
 4. give command: unzip chess_clocker-main.zip
 5. give command: cd chess_clocker-main
-6. give command: python3 chessclocker.py
+6. give command: python3 chessclocker_ad.py (advanced)
+or give command: python3 chessclocker.py    (not advanced) 
 
 original filepath: /home/username/Downloads/chess_clocker-main/chessclocker.py
