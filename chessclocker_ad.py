@@ -16,6 +16,7 @@ class main:
 		self.is_going = False
 		self.is_left = True
 		self.is_right = False
+		self.bonus = 0 # bonus time every move
 	
 		self.control_frame = Frame(self.root)
 		self.left = 0
@@ -23,6 +24,8 @@ class main:
 		
 		# is also at the same time pause button!
 		self.start_button = Button(self.control_frame, text="start", font=("times", 20), bd=4, activebackground="green", command=self.start)
+		self.mode_entry = Entry(self.control_frame, font=("Arial", 15), width=8)
+		self.mode_entry.focus_set()
 		
 		self.left_button = Button(self.control_frame, text="set", font=("Arial", 20), width=2, bd=3, command=self.set_left, activebackground="yellow")
 		self.right_button = Button(self.control_frame, text="set", font=("Arial", 20), width=2, bd=3, command=self.set_right, activebackground="yellow")
@@ -37,15 +40,19 @@ class main:
 		
 	
 	def place_all(self):
-		self.control_frame.pack(side=BOTTOM, pady=30)
+		self.control_frame.pack(side=BOTTOM, pady=5)
 		
 		self.left_timer.pack(side=LEFT, padx=5)
 		self.right_timer.pack(side=RIGHT, padx=5)
 		
-		self.left_button.pack(side=LEFT, padx=100)
-		self.right_button.pack(side=RIGHT, padx=100)
+		self.left_button.pack(side=LEFT, padx=50)
+		self.right_button.pack(side=RIGHT, padx=50)
 		
-		self.start_button.pack()
+		self.start_button.pack(pady=10)
+		
+		Label(self.control_frame, text="mode:", font=("Arial", 15)).pack(side=LEFT, pady=20)
+		self.mode_entry.pack(padx=5, side=LEFT)
+		Button(self.control_frame, text="config", font=("Arial", 15), command=self.config_mode).pack(side=RIGHT)
 		
 	def start(self, event=None):
 		if self.is_going:
@@ -112,11 +119,11 @@ class main:
 		self.right_button["command"] = self.config_right
 		self.right_entry = Entry(self.root, width=15)
 		self.right_entry.focus_set()
-		self.right_entry.place(x=420, y=170)
+		self.right_entry.place(x=460, y=170)
 		
 		# right min. label
 		self.right_min = Label(self.root, text="min.")
-		self.right_min.place(x=600, y=170)
+		self.right_min.place(x=645, y=170)
 	
 	def config_right(self):
 		time = self.right_entry.get()
@@ -152,17 +159,38 @@ class main:
 		
 	def switch_right(self, event=None):
 		if self.is_left:
+			self.left += self.bonus
 			self.right_timer["fg"] = "green"
 			self.left_timer["fg"] = "black"
 			self.is_left = False
 			self.is_right = True
+		
+		self.set_left_str()
 	
 	def switch_left(self, event=None):
 		if self.is_right:
+			self.right += self.bonus
 			self.left_timer["fg"] = "green"
 			self.right_timer["fg"] = "black"
 			self.is_left = True
 			self.is_right = False
+			
+		self.set_right_str()
+			
+	def config_mode(self, event=None):
+		mode = self.mode_entry.get()
+		try:
+			l = mode.split("+")
+			self.right = float(l[0]) * 60
+			self.left = float(l[0]) * 60
+			self.bonus = int(l[1])
+		except:
+			pass
+		self.set_right_str()
+		self.set_left_str()
+		self.root.focus_set()
+		
+		
 			
 
 if __name__ == '__main__':
