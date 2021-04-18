@@ -1,5 +1,4 @@
 from tkinter import *
-import random
 
 
 
@@ -24,8 +23,9 @@ class main:
 		
 		# is also at the same time pause button!
 		self.start_button = Button(self.control_frame, text="start", font=("times", 20), bd=4, activebackground="green", command=self.start)
-		self.mode_entry = Entry(self.control_frame, font=("Arial", 15), width=8)
-		self.mode_entry.focus_set()
+		self.mode_entry_min = Entry(self.control_frame, font=("Arial", 15), width=3)
+		self.mode_entry_sec = Entry(self.control_frame, font=("Arial", 15), width=3)
+		self.mode_entry_min.focus_set()
 		
 		self.left_button = Button(self.control_frame, text="set", font=("Arial", 20), width=2, bd=3, command=self.set_left, activebackground="yellow")
 		self.right_button = Button(self.control_frame, text="set", font=("Arial", 20), width=2, bd=3, command=self.set_right, activebackground="yellow")
@@ -51,8 +51,10 @@ class main:
 		self.start_button.pack(pady=10)
 		
 		Label(self.control_frame, text="mode:", font=("Arial", 15)).pack(side=LEFT, pady=20)
-		self.mode_entry.pack(padx=5, side=LEFT)
-		Button(self.control_frame, text="config", font=("Arial", 15), command=self.config_mode).pack(side=RIGHT)
+		self.mode_entry_min.pack(side=LEFT)
+		Label(self.control_frame, text="+", font=("Arial", 15)).pack(side=LEFT)
+		self.mode_entry_sec.pack(side=LEFT)
+		Button(self.control_frame, text="config", font=("Arial", 10), command=self.config_mode).pack(side=RIGHT)
 		
 	def start(self, event=None):
 		if self.is_going:
@@ -74,23 +76,23 @@ class main:
 		
 	def run(self):
 		if self.is_going:
-		    if self.is_left and self.left > 0:
-		        self.left -= 0.1
-		        self.set_left_str()
-		        
-		    elif self.is_right and self.right > 0:
-		        self.right -= 0.1
-		        self.set_right_str()
-		        
-		    if self.left <= 0:
-		        self.left_timer.config(fg="red")
-		        self.is_going = False
-		        
-		    elif self.right <= 0:
-		        self.right_timer.config(fg="red")
-		        self.is_going = False
+			if self.is_left and self.left > 0:
+				self.left -= 0.1
+				self.set_left_str()
 
-		    self.root.after(100, self.run)
+			elif self.is_right and self.right > 0:
+				self.right -= 0.1
+				self.set_right_str()
+
+			if self.left <= 0:
+				self.left_timer.config(fg="red")
+				self.is_going = False
+
+			elif self.right <= 0:
+				self.right_timer.config(fg="red")
+				self.is_going = False
+
+			self.root.after(100, self.run)
 	
 	def set_left(self):
 		self.left_button["text"] = "ok"
@@ -178,14 +180,12 @@ class main:
 		self.set_right_str()
 			
 	def config_mode(self, event=None):
-		mode = self.mode_entry.get()
-		try:
-			l = mode.split("+")
-			self.right = float(l[0]) * 60
-			self.left = float(l[0]) * 60
-			self.bonus = int(l[1])
-		except:
-			pass
+		min = self.mode_entry_min.get()
+		sec = self.mode_entry_min.get()
+		self.right = float(min) * 60
+		self.left = float(min) * 60
+		self.bonus = float(sec)
+
 		self.set_right_str()
 		self.set_left_str()
 		self.root.focus_set()
@@ -194,4 +194,4 @@ class main:
 			
 
 if __name__ == '__main__':
-    main()
+	main()
