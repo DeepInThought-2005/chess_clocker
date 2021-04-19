@@ -10,7 +10,8 @@ Well, that is somehow better than i thought, i mean 100 times better!
 
 # compiling
 
-To use this little programm, on Linux:\n
+To use this little programm, on Linux:
+
 ready: you need tkinter module, so 
 give command: sudo apt-get install python3-tk
 
