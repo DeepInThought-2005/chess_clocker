@@ -181,7 +181,7 @@ class main:
 			
 	def config_mode(self, event=None):
 		min = self.mode_entry_min.get()
-		sec = self.mode_entry_min.get()
+		sec = self.mode_entry_sec.get()
 		self.right = float(min) * 60
 		self.left = float(min) * 60
 		self.bonus = float(sec)
