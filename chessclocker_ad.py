@@ -160,8 +160,9 @@ class main:
 		self.right_timer["text"] = self.time_format(self.right)
 		
 	def switch_right(self, event=None):
-		if self.is_left and self.is_going:
-			self.left += self.bonus
+		if self.is_left
+			if self.is_going:
+				self.left += self.bonus
 			self.right_timer["fg"] = "green"
 			self.left_timer["fg"] = "black"
 			self.is_left = False
@@ -170,8 +171,9 @@ class main:
 		self.set_left_str()
 	
 	def switch_left(self, event=None):
-		if self.is_right and self.is_going:
-			self.right += self.bonus
+		if self.is_right
+			if self.is_going:
+				self.right += self.bonus
 			self.left_timer["fg"] = "green"
 			self.right_timer["fg"] = "black"
 			self.is_left = True
